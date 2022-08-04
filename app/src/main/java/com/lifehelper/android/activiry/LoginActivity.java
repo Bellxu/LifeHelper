@@ -1,8 +1,10 @@
-package com.lifehelper.android;
+package com.lifehelper.android.activiry;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.lifehelper.android.R;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -1,12 +1,13 @@
-package com.lifehelper.android;
+package com.lifehelper.android.activiry;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.lifehelper.android.R;
+
 //闪屏页
 public class SplashActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
