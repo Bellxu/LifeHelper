@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.lifehelper.android.R;
+import com.lifehelper.android.user.UserConfig;
+import com.lifehelper.android.util.PreferencesUtils;
 
 //闪屏页
 public class SplashActivity extends AppCompatActivity {
@@ -20,6 +22,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void toLogin() {
+        LoginActivity.startActivity(this);
+
     }
 
     private void toHome() {
@@ -27,6 +31,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean checkLogin() {
-        return true;
+        if (PreferencesUtils.getString(this, UserConfig.USER_ID) != null) {
+            return true;
+        }
+        return false;
     }
 }

@@ -3,16 +3,24 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.lifehelper.android"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+
     }
 
     buildTypes {
@@ -25,6 +33,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -35,4 +47,28 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    def room_version = "2.4.3"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+//    def room_version = "2.3.0"
+//
+//    implementation("androidx.room:room-runtime:$room_version") {
+//        exclude(group:'org.xerial')
+//    }
+
+
+//    kapt("androidx.room:room-compiler:$room_version"){
+//        exclude(group:'org.xerial')
+//    }
+//    annotationProcessor("androidx.room:room-compiler:$room_version") {
+//        exclude(group: 'org.xerial')
+//    }
+//    implementation("androidx.room:room-ktx:$room_version"){
+//        exclude(group:'org.xerial')
+//    }
+//    implementation 'org.xerial:sqlite-jdbc:3.34.0' // 最重要的 最重要的 最重要的
+
 }
