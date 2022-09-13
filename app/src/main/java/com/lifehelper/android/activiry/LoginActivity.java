@@ -13,6 +13,8 @@ import android.view.View;
 import com.lifehelper.android.dao.DbManger;
 import com.lifehelper.android.dao.User;
 import com.lifehelper.android.databinding.ActivityLoginBinding;
+import com.lifehelper.android.user.UserConfig;
+import com.lifehelper.android.util.PreferencesUtils;
 import com.lifehelper.android.util.RegexUtils;
 import com.lifehelper.android.util.ToastUtils;
 
@@ -35,11 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         mViewBinding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Editable userName = mViewBinding.etUserName.getText();
-                Editable password = mViewBinding.etPassword.getText();
-                int i = checkUserInfo(userName.toString(), password.toString());
+                String userName = mViewBinding.etUserName.getText().toString();
+                String password = mViewBinding.etPassword.getText().toString();
+                int i = checkUserInfo(userName, password);
                 if (i == 0) {
                     HomeActivity.startActivity(LoginActivity.this);
+                    PreferencesUtils.putString(LoginActivity.this, UserConfig.USER_ID, userName);
                     finish();
                 } else if (i == 1) {
                     ToastUtils.showToast(LoginActivity.this, "请先注册");

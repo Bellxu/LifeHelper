@@ -3,6 +3,7 @@ package com.lifehelper.android.activiry;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.lifehelper.android.R;
 import com.lifehelper.android.user.UserConfig;
@@ -31,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean checkLogin() {
-        if (PreferencesUtils.getString(this, UserConfig.USER_ID) != null) {
+        if (!TextUtils.isEmpty(PreferencesUtils.getString(this, UserConfig.USER_ID))) {
             return true;
         }
         return false;
