@@ -28,5 +28,7 @@ public class CookSearchAdapter extends BaseQuickAdapter<SearchCookBean, BaseView
                 .build());
 
         Glide.with(getContext()).load(glideUrl).into((ImageView) baseViewHolder.getView(R.id.image));
+
+
     }
 }

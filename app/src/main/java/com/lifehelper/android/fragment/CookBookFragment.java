@@ -15,30 +15,28 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lifehelper.android.R;
 import com.lifehelper.android.bean.SearchCookBean;
 import com.lifehelper.android.cook.CookSearchAdapter;
 import com.lifehelper.android.cook.CookViewModel;
-import com.lifehelper.android.databinding.ActivityLoginBinding;
-import com.lifehelper.android.databinding.FragmentCollectionObjectBinding;
-import com.lifehelper.android.databinding.FragmentCooktBinding;
-import com.lifehelper.android.util.ToastUtils;
+import com.lifehelper.android.databinding.FragmentCookBinding;
 
 import java.util.List;
 
 public class CookBookFragment extends BaseFragment {
     private final MutableLiveData<List<SearchCookBean>> cooksLiveData = new MutableLiveData<List<SearchCookBean>>();
     private CookViewModel model;
-    private FragmentCooktBinding mViewBinding;
+    private FragmentCookBinding mViewBinding;
     private CookSearchAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        mViewBinding = FragmentCooktBinding.inflate(getLayoutInflater());
+        mViewBinding = FragmentCookBinding.inflate(getLayoutInflater());
 
         return mViewBinding.getRoot();
     }
@@ -76,6 +74,12 @@ public class CookBookFragment extends BaseFragment {
                 adapter.setList(searchCookBeans);
 //                adapter.addData(searchCookBeans);
                 Log.i("xsk--", "getCooksByClass onChanged: " + Thread.currentThread().getName());
+            }
+        });
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+
             }
         });
     }

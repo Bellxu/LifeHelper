@@ -29,8 +29,8 @@ public class CookViewModel extends ViewModel {
     public LiveData<List<SearchCookBean>> getCooks(String keyword, int num, int start) {
         if (cooks == null) {
             cooks = new MutableLiveData<>();
-            searchCook(keyword, num, start);
         }
+        searchCook(keyword, num, start);
         return cooks;
     }
 
