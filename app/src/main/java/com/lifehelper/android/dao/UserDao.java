@@ -20,6 +20,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE userName == :name")
     List<User> queryUsersBytName(String name);
 
+    @Query("SELECT * FROM user WHERE uid == :uid")
+    List<User> queryUsersBytUid(String uid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
         //遇到重复的插入则替换
     void insertUser(User... users);

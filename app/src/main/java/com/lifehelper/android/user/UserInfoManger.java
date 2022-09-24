@@ -1,17 +1,16 @@
 package com.lifehelper.android.user;
 
-import com.lifehelper.android.dao.AppDatabase;
 import com.lifehelper.android.dao.User;
 
-public class UserManger {
+public class UserInfoManger {
     private User user;
 
     private static class Holder {
-        private static UserManger INSTANCE = new UserManger();
+        private static UserInfoManger INSTANCE = new UserInfoManger();
     }
 
-    public static UserManger getInstance() {
-        return UserManger.Holder.INSTANCE;
+    public static UserInfoManger getInstance() {
+        return UserInfoManger.Holder.INSTANCE;
     }
 
     public User getUser() {

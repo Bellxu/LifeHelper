@@ -24,7 +24,7 @@ public class DbManger {
 
     }
 
-    public AppDatabase getmAppDatabase() {
+    public AppDatabase getAppDatabase() {
         return mAppDatabase;
     }
 }

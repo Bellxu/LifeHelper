@@ -17,5 +17,11 @@ public class User {
     public String nickName;
 
     @ColumnInfo
+    public String Email;
+
+    @ColumnInfo
     public String password;
+
+    @ColumnInfo
+    public String address;
 }

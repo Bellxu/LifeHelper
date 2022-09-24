@@ -1,6 +1,7 @@
 package com.lifehelper.android.util;
 
 import android.content.Context;
+import android.os.Handler;
 import android.widget.Toast;
 
 /**

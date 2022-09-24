@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workpace/LifeHelper/app/src/main/res/layout/activity_cook_detail.xml" value="0.1308876811594203" />
+        <entry key="..\:/workpace/LifeHelper/app/src/main/res/layout/activity_login.xml" value="0.1265625" />
+        <entry key="..\:/workpace/LifeHelper/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/workpace/LifeHelper/app/src/main/res/layout/fragment_mine.xml" value="0.536" />
         <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.1295" />
         <entry key="app/src/main/res/drawable/ic_cather.xml" value="0.1295" />
         <entry key="app/src/main/res/drawable/ic_cookbook.xml" value="0.1295" />
@@ -15,7 +19,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

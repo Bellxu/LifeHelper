@@ -3,23 +3,24 @@ package com.lifehelper.android.activiry;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.lifehelper.android.R;
 import com.lifehelper.android.bean.SearchCookBean;
 import com.lifehelper.android.cook.CookDetailAdapter;
-import com.lifehelper.android.cook.CookSearchAdapter;
 import com.lifehelper.android.cook.CookViewModel;
+import com.lifehelper.android.dao.Cook;
 import com.lifehelper.android.dao.DbManger;
 import com.lifehelper.android.databinding.ActivityCookDetailBinding;
+import com.lifehelper.android.user.UserInfoManger;
+import com.lifehelper.android.util.ToastUtils;
 
 public class CookDetailActivity extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class CookDetailActivity extends AppCompatActivity {
     private CookViewModel model;
     private int cookId;
     private CookDetailAdapter adapter;
+    private SearchCookBean mBean;
 
 
     @Override
@@ -50,6 +52,7 @@ public class CookDetailActivity extends AppCompatActivity {
         model.getCook(cookId).observe(this, new Observer<SearchCookBean>() {
             @Override
             public void onChanged(SearchCookBean searchCookBean) {
+                mBean = searchCookBean;
                 Glide.with(CookDetailActivity.this).load(searchCookBean.getPic()).into(binding.imageCover);
                 binding.tvTitle.setText(searchCookBean.getName());
                 binding.tvRequire.setText("所需人数：" + searchCookBean.getPeoplenum() + "\n"
@@ -62,6 +65,15 @@ public class CookDetailActivity extends AppCompatActivity {
     }
 
     private void collectCooKId() {
+        if (UserInfoManger.getInstance().checkLogin() && mBean != null) {
+            Cook cook = new Cook();
+            cook.cookId = cookId;
+            cook.name = mBean.getName();
+            cook.pic = mBean.getPic();
+            cook.uid = UserInfoManger.getInstance().getUser().uid;
+            DbManger.getInstance().getAppDatabase().cookDao().insertCook();
+            ToastUtils.showToast(this, "收藏成功");
+        }
     }
 
     private String getMaterialContent(SearchCookBean searchCookBean) {

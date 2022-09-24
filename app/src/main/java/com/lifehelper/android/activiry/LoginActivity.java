@@ -8,17 +8,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.lifehelper.android.dao.DbManger;
 import com.lifehelper.android.dao.User;
 import com.lifehelper.android.databinding.ActivityLoginBinding;
 import com.lifehelper.android.user.UserConfig;
+import com.lifehelper.android.user.UserInfoManger;
 import com.lifehelper.android.util.PreferencesUtils;
 import com.lifehelper.android.util.RegexUtils;
 import com.lifehelper.android.util.ToastUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,16 +43,23 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = mViewBinding.etUserName.getText().toString();
                 String password = mViewBinding.etPassword.getText().toString();
-                int i = checkUserInfo(userName, password);
-                if (i == 0) {
-                    HomeActivity.startActivity(LoginActivity.this);
-                    PreferencesUtils.putString(LoginActivity.this, UserConfig.USER_ID, userName);
-                    finish();
-                } else if (i == 1) {
-                    ToastUtils.showToast(LoginActivity.this, "请先注册");
-                } else {
-                    ToastUtils.showToast(LoginActivity.this, "密码错误");
-                }
+                checkUserInfo(userName, password, new userInfoCallBack() {
+                    @Override
+                    public void onUserInfo(User user, int status) {
+                        Log.i("xsk--", "onUserInfo: "+Thread.currentThread().getName());
+                        if (status == 0) {
+                            HomeActivity.startActivity(LoginActivity.this);
+                            PreferencesUtils.putString(LoginActivity.this, UserConfig.USER_NAME, userName);
+                            UserInfoManger.getInstance().setUser(user);
+                            finish();
+                        } else if (status == 1) {
+                            ToastUtils.showToast(LoginActivity.this, "请先注册");
+                        } else {
+                            ToastUtils.showToast(LoginActivity.this, "密码错误");
+                        }
+
+                    }
+                });
             }
         });
         mViewBinding.btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                     User user = new User();
                     user.userName = userName.toString();
                     user.password = password.toString();
-                    if (!DbManger.getInstance().getmAppDatabase().userDao().queryUsersBytName(userName.toString()).isEmpty()) {
+                    if (!DbManger.getInstance().getAppDatabase().userDao().queryUsersBytName(userName.toString()).isEmpty()) {
                         ToastUtils.showToast(LoginActivity.this, "账号已存在，请不要重复注册");
                     }
-                    DbManger.getInstance().getmAppDatabase().userDao().insertUser(user);
+                    DbManger.getInstance().getAppDatabase().userDao().insertUser(user);
                     ToastUtils.showToast(LoginActivity.this, "注册成功,点击登陆继续");
                 }
             }
@@ -73,26 +84,26 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private int checkUserInfo(String userName, String password) {
-        List<User> users = DbManger.getInstance().getmAppDatabase().userDao().queryUsersBytName(userName);
+    interface userInfoCallBack {
+        void onUserInfo(User user, int status);
+    }
+
+    private void checkUserInfo(String userName, String password, userInfoCallBack userInfoCallBack) {
+        List<User> users = DbManger.getInstance().getAppDatabase().userDao().queryUsersBytName(userName);
         if (users.isEmpty()) {
-            return 1;
+            userInfoCallBack.onUserInfo(null, 1);
         } else {
-            boolean has = false;
             for (User user : users) {
                 if (user.password.equals(password)) {
-                    has = true;
-                }
-                if (has) {
-                    return 0;
-                } else {
-                    return 2;
+                    userInfoCallBack.onUserInfo(user, 0);
+                    break;
                 }
             }
-
+            userInfoCallBack.onUserInfo(null, 2);
         }
+
         //0 登陆成功 1 未注册 2 账号密码错误
-        return 0;
+        userInfoCallBack.onUserInfo(null, 1);
     }
 
     private void initView() {

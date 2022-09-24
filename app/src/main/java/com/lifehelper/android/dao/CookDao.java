@@ -20,7 +20,7 @@ public interface CookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
         //遇到重复的插入则替换
-    void insertUser(Cook... cooks);
+    void insertCook(Cook... cooks);
 
     @Delete
     void delete(Cook cook);
