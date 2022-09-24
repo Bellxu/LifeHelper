@@ -25,13 +25,44 @@ public class CookViewModel extends ViewModel {
 
     private MutableLiveData<List<SearchCookBean>> cooks;
     private MutableLiveData<List<SearchCookBean>> cooksDefault;
+    private MutableLiveData<SearchCookBean> cook;
 
     public LiveData<List<SearchCookBean>> getCooks(String keyword, int num, int start) {
         if (cooks == null) {
             cooks = new MutableLiveData<>();
         }
-        searchCook(keyword, num, start);
+        searchCooks(keyword, num, start);
         return cooks;
+    }
+
+    public LiveData<SearchCookBean> getCook(int id) {
+        if (cook == null) {
+            cook = new MutableLiveData<>();
+        }
+        searchCook(id);
+        return cook;
+    }
+
+    private void searchCook(int id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlProvider.CaiPuBaseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+        apiService.searchCookById(id, UrlProvider.appkey).enqueue(new Callback<ResultBean<SearchCookBean>>() {
+            @Override
+            public void onResponse(Call<ResultBean<SearchCookBean>> call, Response<ResultBean<SearchCookBean>> response) {
+                Log.i("xsk--", "onResponse: ");
+                ResultBean<SearchCookBean> body = response.body();
+                SearchCookBean result =  body.getResult().getResult();
+                cook.setValue(result);
+            }
+
+            @Override
+            public void onFailure(Call<ResultBean<SearchCookBean>> call, Throwable t) {
+
+            }
+        });
     }
 
     public LiveData<List<SearchCookBean>> getCooksByClass(int num, int start) {
@@ -43,7 +74,7 @@ public class CookViewModel extends ViewModel {
     }
 
 
-    public void searchCook(String keyword, int num, int start) {
+    public void searchCooks(String keyword, int num, int start) {
         Log.i("xsk--", "searchCook: ");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlProvider.CaiPuBaseUrl)

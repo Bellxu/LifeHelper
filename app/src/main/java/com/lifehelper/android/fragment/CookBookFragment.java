@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +15,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lifehelper.android.R;
+import com.lifehelper.android.activiry.CookDetailActivity;
 import com.lifehelper.android.bean.SearchCookBean;
 import com.lifehelper.android.cook.CookSearchAdapter;
 import com.lifehelper.android.cook.CookViewModel;
@@ -43,8 +41,8 @@ public class CookBookFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        adapter = new CookSearchAdapter(R.layout.search_cook);
         model = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.NewInstanceFactory()).get(CookViewModel.class);
+        adapter = new CookSearchAdapter(R.layout.item_search_cook);
         mViewBinding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mViewBinding.recyclerView.setAdapter(adapter);
         mViewBinding.searchEdit.addTextChangedListener(new TextWatcher() {
@@ -76,11 +74,9 @@ public class CookBookFragment extends BaseFragment {
                 Log.i("xsk--", "getCooksByClass onChanged: " + Thread.currentThread().getName());
             }
         });
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-
-            }
+        adapter.setOnItemClickListener((adapter, view1, position) -> {
+            SearchCookBean data = (SearchCookBean) adapter.getData().get(position);
+            CookDetailActivity.startActivity(getActivity(), data.getId());
         });
     }
 

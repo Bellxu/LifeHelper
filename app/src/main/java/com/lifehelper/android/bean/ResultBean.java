@@ -19,7 +19,7 @@ public class ResultBean<T> {
     /**
      * result
      */
-    private T result;
+    private InnerResult<T> result;
     /**
      * requestId
      */
@@ -49,11 +49,11 @@ public class ResultBean<T> {
         this.msg = msg;
     }
 
-    public T getResult() {
+    public InnerResult<T> getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(InnerResult<T> result) {
         this.result = result;
     }
 

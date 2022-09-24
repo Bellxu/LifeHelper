@@ -1,6 +1,7 @@
 package com.lifehelper.android.net;
 
 import com.lifehelper.android.bean.ResultBean;
+import com.lifehelper.android.bean.SearchCookBean;
 import com.lifehelper.android.bean.SearchCookResultBean;
 
 import retrofit2.Call;
@@ -13,4 +14,7 @@ public interface ApiService {
 
     @GET("byclass")
     Call<ResultBean<SearchCookResultBean>> searchCookByClass(@Query("classid") int classId, @Query("num") int num, @Query("start") int start, @Query("appkey") String appkey);
+
+    @GET("detail")
+    Call<ResultBean<SearchCookBean>> searchCookById(@Query("id") int cookId, @Query("appkey") String appkey);
 }

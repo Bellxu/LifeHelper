@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/goods_ly_1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_fa_corner_10_bottom"
+        android:paddingHorizontal="17.5dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        tools:text="步骤1" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+         />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        tools:text="再下入姜丝、虾仁，煮五分钟，接着放入两勺盐，撒少许胡椒粉，最后放入香菜、葱花，拌匀，即可出锅。" />
+
+
+</LinearLayout>
