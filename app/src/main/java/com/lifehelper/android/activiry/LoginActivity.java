@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lifehelper.android.dao.DbManger;
 import com.lifehelper.android.dao.User;
@@ -43,19 +44,23 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = mViewBinding.etUserName.getText().toString();
                 String password = mViewBinding.etPassword.getText().toString();
+                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(LoginActivity.this, "账号或者密码为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 checkUserInfo(userName, password, new userInfoCallBack() {
                     @Override
                     public void onUserInfo(User user, int status) {
-                        Log.i("xsk--", "onUserInfo: "+Thread.currentThread().getName());
+                        Log.i("xsk--", "onUserInfo: " + Thread.currentThread().getName());
                         if (status == 0) {
                             HomeActivity.startActivity(LoginActivity.this);
                             PreferencesUtils.putString(LoginActivity.this, UserConfig.USER_NAME, userName);
                             UserInfoManger.getInstance().setUser(user);
                             finish();
                         } else if (status == 1) {
-                            ToastUtils.showToast(LoginActivity.this, "请先注册");
+                            Toast.makeText(LoginActivity.this, "请先注册", Toast.LENGTH_SHORT).show();
                         } else {
-                            ToastUtils.showToast(LoginActivity.this, "密码错误");
+                            Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -72,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     User user = new User();
                     user.userName = userName.toString();
+                    user.nickName = userName.toString();
                     user.password = password.toString();
                     if (!DbManger.getInstance().getAppDatabase().userDao().queryUsersBytName(userName.toString()).isEmpty()) {
                         ToastUtils.showToast(LoginActivity.this, "账号已存在，请不要重复注册");
@@ -90,20 +96,20 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkUserInfo(String userName, String password, userInfoCallBack userInfoCallBack) {
         List<User> users = DbManger.getInstance().getAppDatabase().userDao().queryUsersBytName(userName);
+        //0 登陆成功 1 未注册 2 账号密码错误
+
         if (users.isEmpty()) {
             userInfoCallBack.onUserInfo(null, 1);
         } else {
             for (User user : users) {
                 if (user.password.equals(password)) {
                     userInfoCallBack.onUserInfo(user, 0);
-                    break;
+                    return;
                 }
             }
             userInfoCallBack.onUserInfo(null, 2);
         }
 
-        //0 登陆成功 1 未注册 2 账号密码错误
-        userInfoCallBack.onUserInfo(null, 1);
     }
 
     private void initView() {

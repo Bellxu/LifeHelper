@@ -10,7 +10,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.lifehelper.android.R;
-import com.lifehelper.android.bean.SearchCookBean;
+import com.lifehelper.android.bean.cook.SearchCookBean;
 
 public class CookDetailAdapter extends BaseQuickAdapter<SearchCookBean.ProcessDTO, BaseViewHolder> {
 

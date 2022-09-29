@@ -1,4 +1,4 @@
-package com.lifehelper.android.bean;
+package com.lifehelper.android.bean.cook;
 
 import java.io.Serializable;
 import java.util.List;

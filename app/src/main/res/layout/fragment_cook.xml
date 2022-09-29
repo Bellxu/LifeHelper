@@ -16,12 +16,21 @@
         android:drawableLeft="@mipmap/d2_ic_search_gray"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:hint="请输入商品名称"
+        android:hint="请输入菜谱名称"
         android:paddingLeft="16dp"
         android:textSize="15sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
 </LinearLayout>

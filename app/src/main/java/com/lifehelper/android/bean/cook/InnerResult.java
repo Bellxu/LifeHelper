@@ -1,4 +1,4 @@
-package com.lifehelper.android.bean;
+package com.lifehelper.android.bean.cook;
 
 public class InnerResult<T> {
     /**

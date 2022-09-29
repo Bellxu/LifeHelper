@@ -29,11 +29,14 @@ public class SplashActivity extends AppCompatActivity {
 
     private void toLogin() {
         LoginActivity.startActivity(this);
+        finish();
 
     }
 
     private void toHome() {
         HomeActivity.startActivity(this);
+        finish();
+
     }
 
     private boolean checkLogin() {

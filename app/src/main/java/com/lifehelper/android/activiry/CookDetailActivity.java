@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.lifehelper.android.R;
-import com.lifehelper.android.bean.SearchCookBean;
+import com.lifehelper.android.bean.cook.SearchCookBean;
 import com.lifehelper.android.cook.CookDetailAdapter;
 import com.lifehelper.android.cook.CookViewModel;
 import com.lifehelper.android.dao.Cook;
@@ -49,7 +48,8 @@ public class CookDetailActivity extends AppCompatActivity {
                 collectCooKId();
             }
         });
-        model.getCook(cookId).observe(this, new Observer<SearchCookBean>() {
+
+        model.cook.observe(this, new Observer<SearchCookBean>() {
             @Override
             public void onChanged(SearchCookBean searchCookBean) {
                 mBean = searchCookBean;
@@ -62,6 +62,7 @@ public class CookDetailActivity extends AppCompatActivity {
                 adapter.setList(searchCookBean.getProcess());
             }
         });
+        model.getCook(cookId);
     }
 
     private void collectCooKId() {

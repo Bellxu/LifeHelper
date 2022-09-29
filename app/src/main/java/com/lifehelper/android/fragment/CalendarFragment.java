@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.lifehelper.android.R;
+import com.lifehelper.android.bean.calendar.TodayBean;
+import com.lifehelper.android.calendar.CalendarViewModel;
+import com.lifehelper.android.cook.CookViewModel;
 import com.lifehelper.android.databinding.FragmentCalendarBinding;
 import com.lifehelper.android.databinding.FragmentMineBinding;
 import com.necer.calendar.BaseCalendar;
@@ -30,6 +35,8 @@ import java.util.List;
 public class CalendarFragment extends BaseFragment {
 
     private FragmentCalendarBinding mViewBinding;
+    private CalendarViewModel model;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,6 +47,8 @@ public class CalendarFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        model = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.NewInstanceFactory()).get(CalendarViewModel.class);
+
         mViewBinding.miui10Calendar.setCheckMode(CheckModel.SINGLE_DEFAULT_CHECKED);
         //可以画点
 //        InnerPainter innerPainter = (InnerPainter) mViewBinding.miui10Calendar.getCalendarPainter();
@@ -57,6 +66,7 @@ public class CalendarFragment extends BaseFragment {
                     CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
                     Lunar lunar = calendarDate.lunar;
                     mViewBinding.tvData.setText(localDate.toString("yyyy年MM月dd日"));
+                    getToday(localDate);
                     mViewBinding.tvDesc.setText(lunar.chineseEra + lunar.animals + "年" + lunar.lunarMonthStr + lunar.lunarDayStr);
                 } else {
                     mViewBinding.tvData.setText("");
@@ -76,4 +86,20 @@ public class CalendarFragment extends BaseFragment {
 
         });
     }
+
+    private void getToday(LocalDate localDate) {
+        model.getToday(localDate.toString("yyyyMMdd")).observe(getViewLifecycleOwner(), new Observer<TodayBean>() {
+            @Override
+            public void onChanged(TodayBean todayBean) {
+                if (todayBean != null) {
+                    mViewBinding.tvSuit.setText("宜：" + todayBean.getSuit());
+                    mViewBinding.tvAvoid.setText("忌：" + todayBean.getAvoid());
+                    mViewBinding.tvSolarTerms.setText("节气：" + todayBean.getSolarTerms());
+                    mViewBinding.tvSconstellation.setText("星座：" + todayBean.getSolarTerms());
+                }
+            }
+        });
+    }
+
+
 }

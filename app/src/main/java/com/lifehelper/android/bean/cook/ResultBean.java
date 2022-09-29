@@ -1,6 +1,4 @@
-package com.lifehelper.android.bean;
-
-import java.util.List;
+package com.lifehelper.android.bean.cook;
 
 public class ResultBean<T> {
 

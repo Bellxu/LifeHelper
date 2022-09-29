@@ -1,7 +1,8 @@
 package com.lifehelper.android.net;
 
 public class UrlProvider {
-    public static final String appkey = "28b83fa6fb5ae550f3e84512de16d3f7";
-    public static final String CaiPuBaseUrl = "https://way.jd.com/jisuapi/";
+    public static final String cookBaseUrl = "https://way.jd.com/jisuapi/";
+    public static final String calendarBaseUrl = "https://www.mxnzp.com/api/";
+    public static final String weatherBaseUrl = "https://api.caiyunapp.com/";
 
 }

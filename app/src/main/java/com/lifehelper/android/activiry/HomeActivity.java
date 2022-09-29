@@ -1,7 +1,6 @@
 package com.lifehelper.android.activiry;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -12,10 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -92,6 +87,10 @@ public class HomeActivity extends AppCompatActivity {
         public int getItemCount() {
             return 4;
         }
+    }
+
+    public void switchTab(int index) {
+        viewPager.setCurrentItem(index);
     }
 
 }

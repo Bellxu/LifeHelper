@@ -14,10 +14,17 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activiry.CookDetailActivity"
+            android:name=".activiry.SettingActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
+            android:name=".activiry.CookDetailActivity"
+            android:exported="false"></activity>
+        <activity
+            android:launchMode="singleTop"
             android:name=".activiry.HomeActivity"
             android:exported="false" />
         <activity

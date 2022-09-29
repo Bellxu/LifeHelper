@@ -17,10 +17,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.lifehelper.android.R;
 import com.lifehelper.android.activiry.CookDetailActivity;
-import com.lifehelper.android.bean.SearchCookBean;
+import com.lifehelper.android.bean.cook.SearchCookBean;
+import com.lifehelper.android.bean.cook.SearchCookListBean;
 import com.lifehelper.android.cook.CookSearchAdapter;
 import com.lifehelper.android.cook.CookViewModel;
 import com.lifehelper.android.databinding.FragmentCookBinding;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class CookBookFragment extends BaseFragment {
     private CookViewModel model;
     private FragmentCookBinding mViewBinding;
     private CookSearchAdapter adapter;
+    private String keyword;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,6 +47,7 @@ public class CookBookFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         model = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.NewInstanceFactory()).get(CookViewModel.class);
+        initLiveDataObserver();
         adapter = new CookSearchAdapter(R.layout.item_search_cook);
         mViewBinding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mViewBinding.recyclerView.setAdapter(adapter);
@@ -59,36 +65,86 @@ public class CookBookFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 Log.i("xsk--", "afterTextChanged: " + s.toString());
-                String keyword = s.toString();
-                if (!keyword.isEmpty()) {
-                    searchKeyword(keyword);
-                }
+                keyword = s.toString();
+                searchKeyword();
             }
         });
-
-        model.getCooksByClass(10, 0).observe(getViewLifecycleOwner(), new Observer<List<SearchCookBean>>() {
-            @Override
-            public void onChanged(List<SearchCookBean> searchCookBeans) {
-                adapter.setList(searchCookBeans);
-//                adapter.addData(searchCookBeans);
-                Log.i("xsk--", "getCooksByClass onChanged: " + Thread.currentThread().getName());
-            }
-        });
+        recommend();
         adapter.setOnItemClickListener((adapter, view1, position) -> {
             SearchCookBean data = (SearchCookBean) adapter.getData().get(position);
             CookDetailActivity.startActivity(getActivity(), data.getId());
         });
-    }
-
-    private void searchKeyword(String keyword) {
-        model.getCooks(keyword, 10, 0).observe(getViewLifecycleOwner(), new Observer<List<SearchCookBean>>() {
+        mViewBinding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onChanged(List<SearchCookBean> searchCookBeans) {
-                adapter.setList(searchCookBeans);
-                Log.i("xsk--", "searchKeyword onChanged: " + Thread.currentThread().getName());
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refresh();
             }
         });
+        mViewBinding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMore();
+            }
+        });
+    }
 
+    private void initLiveDataObserver() {
+        model.cooks.observe(getViewLifecycleOwner(), new Observer<SearchCookListBean>() {
+            @Override
+            public void onChanged(SearchCookListBean searchCookListBean) {
+                if (searchCookListBean.getRequestType() == 0) {
+                    adapter.setList(searchCookListBean.getList());
+                    mViewBinding.refreshLayout.finishRefresh();
+
+                } else {
+                    adapter.addData(searchCookListBean.getList());
+                    mViewBinding.refreshLayout.finishLoadMore();
+
+                }
+            }
+        });
+    }
+
+    private void refresh() {
+        if (keyword == null || keyword.isEmpty()) {
+            recommend();
+        } else {
+            searchKeyword();
+        }
+    }
+
+
+    private void loadMore() {
+        int size = adapter.getData().size();
+        if (keyword == null || keyword.isEmpty()) {
+            recommend(size);
+        } else {
+            searchKeyword(size);
+        }
 
     }
+
+    private void recommend() {
+        model.getCooksByClass(10, 0);
+    }
+
+    private void recommend(int start) {
+        model.getCooksByClass(10, start);
+    }
+
+    private void searchKeyword() {
+        if (keyword == null || keyword.isEmpty()) {
+            return;
+        }
+        model.getCooks(keyword, 10, 0);
+    }
+
+    private void searchKeyword(int start) {
+        if (keyword == null || keyword.isEmpty()) {
+            return;
+        }
+        model.getCooks(keyword, 10, start);
+
+    }
+
 }

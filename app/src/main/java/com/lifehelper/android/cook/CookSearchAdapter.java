@@ -3,7 +3,6 @@ package com.lifehelper.android.cook;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -11,7 +10,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.lifehelper.android.R;
-import com.lifehelper.android.bean.SearchCookBean;
+import com.lifehelper.android.bean.cook.SearchCookBean;
 
 public class CookSearchAdapter extends BaseQuickAdapter<SearchCookBean, BaseViewHolder> {
 

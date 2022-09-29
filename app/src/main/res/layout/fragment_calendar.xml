@@ -55,6 +55,7 @@
                     android:textColor="#333333"
                     android:textSize="13sp" />
 
+
                 <TextView
                     android:id="@+id/tv_desc"
                     android:layout_width="match_parent"
@@ -63,6 +64,44 @@
                     android:text=""
                     android:textColor="#666666"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_suit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text=""
+                    android:textColor="#4CAF50"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_avoid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text=""
+                    android:textColor="#F44336"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_solarTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="13sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_sconstellation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="13sp" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
