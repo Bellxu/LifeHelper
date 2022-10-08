@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Cook {
 
-    @PrimaryKey //可设置主键自增长
+    @PrimaryKey
     public int cookId;
 
     @ColumnInfo

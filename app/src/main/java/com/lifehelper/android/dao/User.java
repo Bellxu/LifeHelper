@@ -1,6 +1,7 @@
 package com.lifehelper.android.dao;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -22,6 +23,6 @@ public class User {
     @ColumnInfo
     public String password;
 
-    @ColumnInfo
-    public String address;
+    @Embedded
+    public Place place;
 }

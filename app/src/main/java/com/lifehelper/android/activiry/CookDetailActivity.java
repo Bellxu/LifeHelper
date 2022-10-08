@@ -21,6 +21,8 @@ import com.lifehelper.android.databinding.ActivityCookDetailBinding;
 import com.lifehelper.android.user.UserInfoManger;
 import com.lifehelper.android.util.ToastUtils;
 
+import java.util.List;
+
 public class CookDetailActivity extends AppCompatActivity {
 
     private ActivityCookDetailBinding binding;
@@ -42,10 +44,13 @@ public class CookDetailActivity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
         binding.imageBack.setOnClickListener(v -> onBackPressed());
+        binding.imageCollect.setSelected(checkCollect());
         binding.imageCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                collectCooKId();
+                binding.imageCollect.setSelected(!binding.imageCollect.isSelected());
+
+                collectCooKId(binding.imageCollect.isSelected());
             }
         });
 
@@ -65,16 +70,28 @@ public class CookDetailActivity extends AppCompatActivity {
         model.getCook(cookId);
     }
 
-    private void collectCooKId() {
-        if (UserInfoManger.getInstance().checkLogin() && mBean != null) {
-            Cook cook = new Cook();
-            cook.cookId = cookId;
-            cook.name = mBean.getName();
-            cook.pic = mBean.getPic();
-            cook.uid = UserInfoManger.getInstance().getUser().uid;
-            DbManger.getInstance().getAppDatabase().cookDao().insertCook();
-            ToastUtils.showToast(this, "收藏成功");
+    private boolean checkCollect() {
+        List<Cook> cooks = DbManger.getInstance().getAppDatabase().cookDao().queryCooksByCookId(cookId);
+        return cooks != null && !cooks.isEmpty();
+    }
+
+    private void collectCooKId(boolean selected) {
+        if (!UserInfoManger.getInstance().checkLogin() || mBean == null) {
+            return;
         }
+        Cook cook = new Cook();
+        cook.cookId = cookId;
+        cook.name = mBean.getName();
+        cook.pic = mBean.getPic();
+        cook.uid = UserInfoManger.getInstance().getUser().uid;
+        if (selected) {
+            DbManger.getInstance().getAppDatabase().cookDao().insertCook(cook);
+            ToastUtils.showToast(this, "收藏成功");
+        } else {
+            DbManger.getInstance().getAppDatabase().cookDao().delete(cook);
+            ToastUtils.showToast(this, "取消收藏");
+        }
+
     }
 
     private String getMaterialContent(SearchCookBean searchCookBean) {

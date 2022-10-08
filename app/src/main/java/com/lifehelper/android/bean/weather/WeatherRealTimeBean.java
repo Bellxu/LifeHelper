@@ -167,7 +167,7 @@ public class WeatherRealTimeBean {
             /**
              * cloudrate
              */
-            private int cloudrate;
+            private double cloudrate;
             /**
              * skycon
              */
@@ -187,7 +187,7 @@ public class WeatherRealTimeBean {
             /**
              * pressure
              */
-            private int pressure;
+            private double pressure;
             /**
              * apparent_temperature
              */
@@ -229,11 +229,11 @@ public class WeatherRealTimeBean {
                 this.humidity = humidity;
             }
 
-            public int getCloudrate() {
+            public double getCloudrate() {
                 return cloudrate;
             }
 
-            public void setCloudrate(int cloudrate) {
+            public void setCloudrate(double cloudrate) {
                 this.cloudrate = cloudrate;
             }
 
@@ -269,11 +269,11 @@ public class WeatherRealTimeBean {
                 this.wind = wind;
             }
 
-            public int getPressure() {
+            public double getPressure() {
                 return pressure;
             }
 
-            public void setPressure(int pressure) {
+            public void setPressure(double pressure) {
                 this.pressure = pressure;
             }
 
@@ -317,7 +317,7 @@ public class WeatherRealTimeBean {
                 /**
                  * direction
                  */
-                private int direction;
+                private double direction;
 
                 public double getSpeed() {
                     return speed;
@@ -327,11 +327,11 @@ public class WeatherRealTimeBean {
                     this.speed = speed;
                 }
 
-                public int getDirection() {
+                public double getDirection() {
                     return direction;
                 }
 
-                public void setDirection(int direction) {
+                public void setDirection(double direction) {
                     this.direction = direction;
                 }
             }

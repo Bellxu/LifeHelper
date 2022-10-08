@@ -882,7 +882,7 @@ public class WeatherDailyBean {
                 /**
                  * min
                  */
-                private int min;
+                private double min;
                 /**
                  * avg
                  */
@@ -904,11 +904,11 @@ public class WeatherDailyBean {
                     this.max = max;
                 }
 
-                public int getMin() {
+                public double getMin() {
                     return min;
                 }
 
-                public void setMin(int min) {
+                public void setMin(double min) {
                     this.min = min;
                 }
 
@@ -929,7 +929,7 @@ public class WeatherDailyBean {
                 /**
                  * max
                  */
-                private int max;
+                private double max;
                 /**
                  * min
                  */
@@ -947,11 +947,11 @@ public class WeatherDailyBean {
                     this.date = date;
                 }
 
-                public int getMax() {
+                public double getMax() {
                     return max;
                 }
 
-                public void setMax(int max) {
+                public void setMax(double max) {
                     this.max = max;
                 }
 
@@ -1163,7 +1163,7 @@ public class WeatherDailyBean {
                 /**
                  * max
                  */
-                private int max;
+                private double max;
                 /**
                  * min
                  */
@@ -1181,11 +1181,11 @@ public class WeatherDailyBean {
                     this.date = date;
                 }
 
-                public int getMax() {
+                public double getMax() {
                     return max;
                 }
 
-                public void setMax(int max) {
+                public void setMax(double max) {
                     this.max = max;
                 }
 
@@ -1214,11 +1214,11 @@ public class WeatherDailyBean {
                 /**
                  * max
                  */
-                private int max;
+                private double max;
                 /**
                  * min
                  */
-                private int min;
+                private double min;
                 /**
                  * avg
                  */
@@ -1232,7 +1232,7 @@ public class WeatherDailyBean {
                     this.date = date;
                 }
 
-                public int getMax() {
+                public double getMax() {
                     return max;
                 }
 
@@ -1240,7 +1240,7 @@ public class WeatherDailyBean {
                     this.max = max;
                 }
 
-                public int getMin() {
+                public double getMin() {
                     return min;
                 }
 
@@ -1320,7 +1320,7 @@ public class WeatherDailyBean {
                 /**
                  * min
                  */
-                private int min;
+                private double min;
                 /**
                  * avg
                  */
@@ -1342,11 +1342,11 @@ public class WeatherDailyBean {
                     this.max = max;
                 }
 
-                public int getMin() {
+                public double getMin() {
                     return min;
                 }
 
-                public void setMin(int min) {
+                public void setMin(double min) {
                     this.min = min;
                 }
 

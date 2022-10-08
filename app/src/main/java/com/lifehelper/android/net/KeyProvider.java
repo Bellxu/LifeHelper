@@ -5,5 +5,4 @@ public class KeyProvider {
     public static final String WEATHER_APP_KEY = "PGKS7vVNhInToK6z";
     public static final String ROLL_APP_ID = "e0ppnngpwululjfd";
     public static final String ROLL_APP_SECRET = "YnQxOHlRNkJkUUttdWt1YnNFM0VrZz09";
-
 }

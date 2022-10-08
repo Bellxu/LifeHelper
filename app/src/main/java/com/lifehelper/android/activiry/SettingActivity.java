@@ -21,6 +21,12 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mViewBinding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(mViewBinding.getRoot());
+        mViewBinding.imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mViewBinding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

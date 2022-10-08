@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.pager);
+        viewPager.setUserInputEnabled(false);
         demoCollectionAdapter = new DemoCollectionAdapter(this);
         viewPager.setAdapter(demoCollectionAdapter);
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
@@ -87,6 +88,8 @@ public class HomeActivity extends AppCompatActivity {
         public int getItemCount() {
             return 4;
         }
+
+
     }
 
     public void switchTab(int index) {

@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -26,6 +27,10 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
         //遇到重复的插入则替换
     void insertUser(User... users);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+        //遇到重复的插入则替换
+    void updateUser(User... users);
 
     @Delete
     void delete(User user);
