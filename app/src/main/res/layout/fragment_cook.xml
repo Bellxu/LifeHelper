@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
+    <!--搜索框-->
     <EditText
         android:id="@+id/search_edit"
         android:layout_width="match_parent"
@@ -19,12 +19,12 @@
         android:hint="请输入菜谱名称"
         android:paddingLeft="16dp"
         android:textSize="15sp" />
-
+    <!--下拉刷新和加载更多-->
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <!--列表-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

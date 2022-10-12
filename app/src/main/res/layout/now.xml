@@ -10,24 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:fitsSystemWindows="true">
-
+        <!--搜索按钮-->
         <Button
             android:id="@+id/navBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
             android:background="@mipmap/d2_ic_search_gray" />
 
         <TextView
             android:id="@+id/placeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:layout_gravity="center"
-            android:singleLine="true"
             android:ellipsize="middle"
+            android:singleLine="true"
             android:textColor="#fff"
             android:textSize="22sp" />
 
@@ -65,9 +65,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
+                android:text="|"
                 android:textColor="#fff"
-                android:textSize="18sp"
-                android:text="|" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/currentAQI"

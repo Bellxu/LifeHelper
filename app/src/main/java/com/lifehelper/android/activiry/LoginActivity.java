@@ -51,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
                 checkUserInfo(userName, password, new userInfoCallBack() {
                     @Override
                     public void onUserInfo(User user, int status) {
-                        Log.i("xsk--", "onUserInfo: " + Thread.currentThread().getName());
                         if (status == 0) {
                             HomeActivity.startActivity(LoginActivity.this);
                             PreferencesUtils.putString(LoginActivity.this, UserConfig.USER_NAME, userName);

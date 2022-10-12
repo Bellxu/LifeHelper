@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activiry.CookCollectActivity">
-
+    <!--导航栏-->
     <FrameLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/image_back"
             android:layout_width="30dp"
@@ -22,14 +23,14 @@
             android:src="@mipmap/ic_back_alpha_black_round_bg" />
 
         <TextView
-            android:text="收藏"
-            android:textSize="15sp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="收藏"
+            android:textSize="15sp" />
 
     </FrameLayout>
-
+    <!--列表-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

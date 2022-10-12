@@ -66,6 +66,7 @@ public class CalendarFragment extends BaseFragment {
                     CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
                     Lunar lunar = calendarDate.lunar;
                     mViewBinding.tvData.setText(localDate.toString("yyyy年MM月dd日"));
+                    //获取今天的黄历信息
                     getToday(localDate);
                     mViewBinding.tvDesc.setText(lunar.chineseEra + lunar.animals + "年" + lunar.lunarMonthStr + lunar.lunarDayStr);
                 } else {
@@ -85,10 +86,7 @@ public class CalendarFragment extends BaseFragment {
             }
 
         });
-    }
-
-    private void getToday(LocalDate localDate) {
-        model.getToday(localDate.toString("yyyyMMdd")).observe(getViewLifecycleOwner(), new Observer<TodayBean>() {
+        model.todayLiveData.observe(getViewLifecycleOwner(), new Observer<TodayBean>() {
             @Override
             public void onChanged(TodayBean todayBean) {
                 if (todayBean != null) {
@@ -99,6 +97,10 @@ public class CalendarFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private void getToday(LocalDate localDate) {
+        model.getToday(localDate.toString("yyyyMMdd"));
     }
 
 

@@ -66,14 +66,17 @@ public class WeatherFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(getViewModelStore(), new ViewModelProvider.NewInstanceFactory()).get(WeatherViewModel.class);
         User user = UserInfoManger.getInstance().getUser();
+        //获取用户的地址信息设置经纬度和地址名
         if (user.place != null) {
             viewModel.locationLat = user.place.lat;
             viewModel.locationLng = user.place.lng;
             viewModel.placeName = user.place.name;
         }
+        //设置监听
         viewModel.weatherLiveData.observe(getViewLifecycleOwner(), new Observer<Weather>() {
             @Override
             public void onChanged(Weather weather) {
+                //设置页面信息
                 showWeatherInfo(weather);
                 binding.swipeRefresh.finishRefresh();
             }

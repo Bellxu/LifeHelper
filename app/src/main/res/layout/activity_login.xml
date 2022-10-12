@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--根布局-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:padding="13dp"
     tools:context=".activiry.LoginActivity">
-
+    <!--返回键-->
     <ImageView
         android:id="@+id/ic_back"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@mipmap/ic_back_alpha_black_round_bg" />
-
-
+    <!--标题-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +22,7 @@
         android:text="生活小助手"
         android:textColor="#222222"
         android:textSize="50sp"></TextView>
-
+    <!--登陆模块-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/ic_login"
             android:hint="请输入账号" />
-
+        <!--分割线-->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

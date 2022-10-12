@@ -45,7 +45,6 @@ public class MineFragment extends BaseFragment {
         data.add(new MineBean("天气", R.mipmap.ic_weather_selected));
         data.add(new MineBean("菜谱", R.mipmap.ic_cookbook_selected));
         data.add(new MineBean("日历", R.mipmap.ic_calendar_selected));
-//        data.add(new MineBean("翻译", R.mipmap.ic_translate));
         data.add(new MineBean("菜谱收藏", R.mipmap.ic_collect_selected));
     }
 

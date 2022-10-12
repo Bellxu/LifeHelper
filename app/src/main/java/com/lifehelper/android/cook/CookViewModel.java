@@ -73,7 +73,6 @@ public class CookViewModel extends ViewModel {
 
 
     public void searchCooks(String keyword, int num, int start) {
-        Log.i("xsk--", "searchCook: ");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlProvider.cookBaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -82,7 +81,6 @@ public class CookViewModel extends ViewModel {
         apiService.searchCook(keyword, num, start, KeyProvider.COOK_APP_KEY).enqueue(new Callback<ResultBean<SearchCookResultBean>>() {
             @Override
             public void onResponse(Call<ResultBean<SearchCookResultBean>> call, Response<ResultBean<SearchCookResultBean>> response) {
-                Log.i("xsk--", "onResponse: ");
                 ResultBean<SearchCookResultBean> body = response.body();
                 SearchCookListBean searchCookListBean = new SearchCookListBean();
                 if (start > 0) {
@@ -109,6 +107,7 @@ public class CookViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
+        //302为推荐菜谱ID
         apiService.searchCookByClass(302, num, start, KeyProvider.COOK_APP_KEY).enqueue(new Callback<ResultBean<SearchCookResultBean>>() {
             @Override
             public void onResponse(Call<ResultBean<SearchCookResultBean>> call, Response<ResultBean<SearchCookResultBean>> response) {

@@ -67,6 +67,7 @@ public class PlaceFragment extends BaseFragment {
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
                 if (!text.isEmpty()) {
+                    //搜索地址
                     viewModel.searPlace(text);
                 } else {
                     binding.bgImageView.setVisibility(View.VISIBLE);
@@ -76,47 +77,44 @@ public class PlaceFragment extends BaseFragment {
             }
         });
 
-        placeAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                User user = UserInfoManger.getInstance().getUser();
-                WeatherPlaceBean.PlacesDTO place = (WeatherPlaceBean.PlacesDTO) adapter.getData().get(position);
-                Place place1 = new Place();
-                String placeName = place.getName();
-                place1.name = placeName;
-                String lat = place.getLocation().getLat();
-                place1.lat = lat;
-                String lng = place.getLocation().getLng();
-                place1.lng = lng;
-                user.place = place1;
-                DbManger.getInstance().getAppDatabase().userDao().updateUser(user);
-                UserInfoManger.getInstance().setUser(user);
-                for (Fragment fragment : getActivity().getSupportFragmentManager().getFragments()) {
-                    if (fragment instanceof WeatherFragment) {
-                        WeatherFragment weatherFragment = (WeatherFragment) fragment;
-                        weatherFragment.getViewModel().placeName = placeName;
-                        weatherFragment.getViewModel().locationLat = lat;
-                        weatherFragment.getViewModel().locationLng = lng;
-                        weatherFragment.refreshWeather();
-                        weatherFragment.getBinding().drawerLayout.close();
-                    }
+        placeAdapter.setOnItemClickListener((adapter, view1, position) -> {
+            User user = UserInfoManger.getInstance().getUser();
+            WeatherPlaceBean.PlacesDTO place = (WeatherPlaceBean.PlacesDTO) adapter.getData().get(position);
+            Place place1 = new Place();
+            String placeName = place.getName();
+            place1.name = placeName;
+            String lat = place.getLocation().getLat();
+            place1.lat = lat;
+            String lng = place.getLocation().getLng();
+            place1.lng = lng;
+            user.place = place1;
+            //更新用户信息
+            DbManger.getInstance().getAppDatabase().userDao().updateUser(user);
+            UserInfoManger.getInstance().setUser(user);
+            for (Fragment fragment : getActivity().getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof WeatherFragment) {
+                    //更新天气rFragment中ViewModel的经纬度和地址名
+                    WeatherFragment weatherFragment = (WeatherFragment) fragment;
+                    weatherFragment.getViewModel().placeName = placeName;
+                    weatherFragment.getViewModel().locationLat = lat;
+                    weatherFragment.getViewModel().locationLng = lng;
+                    //刷新天气
+                    weatherFragment.refreshWeather();
+                    //收起侧滑
+                    weatherFragment.getBinding().drawerLayout.close();
                 }
-
             }
 
         });
 
-        viewModel.placeLiveData.observe(getViewLifecycleOwner(), new Observer<WeatherPlaceBean>() {
-            @Override
-            public void onChanged(WeatherPlaceBean weatherPlaceBean) {
-                if (weatherPlaceBean != null && weatherPlaceBean.getPlaces() != null) {
-                    List<WeatherPlaceBean.PlacesDTO> places = weatherPlaceBean.getPlaces();
-                    placeAdapter.setList(places);
-                    binding.bgImageView.setVisibility(View.GONE);
-                    binding.recyclerView.setVisibility(View.VISIBLE);
-                }
-
+        viewModel.placeLiveData.observe(getViewLifecycleOwner(), weatherPlaceBean -> {
+            if (weatherPlaceBean != null && weatherPlaceBean.getPlaces() != null) {
+                List<WeatherPlaceBean.PlacesDTO> places = weatherPlaceBean.getPlaces();
+                placeAdapter.setList(places);
+                binding.bgImageView.setVisibility(View.GONE);
+                binding.recyclerView.setVisibility(View.VISIBLE);
             }
+
         });
     }
 }

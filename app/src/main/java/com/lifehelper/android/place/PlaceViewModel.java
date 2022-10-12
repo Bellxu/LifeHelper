@@ -24,6 +24,7 @@ public class PlaceViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
+        //通过关键字搜索地址信息
         apiService.searchPlaces(keywords).enqueue(new Callback<WeatherPlaceBean>() {
             @Override
             public void onResponse(Call<WeatherPlaceBean> call, Response<WeatherPlaceBean> response) {

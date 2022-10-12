@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5f5f5"
@@ -8,27 +9,25 @@
 
 
     <TextView
+        android:textColor="@color/line"
         android:id="@+id/tv_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp" />
-
-
+    <!--    星期-->
     <com.necer.view.WeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:textColor="#666666" />
-
-
+    <!--    日历-->
     <com.necer.calendar.Miui10Calendar
         android:id="@+id/miui10Calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:showNumberBackground="true"
         app:solarTextBold="true">
-
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -55,7 +54,6 @@
                     android:textColor="#333333"
                     android:textSize="13sp" />
 
-
                 <TextView
                     android:id="@+id/tv_desc"
                     android:layout_width="match_parent"
@@ -64,7 +62,7 @@
                     android:text=""
                     android:textColor="#666666"
                     android:textSize="12sp" />
-
+                <!--宜-->
                 <TextView
                     android:id="@+id/tv_suit"
                     android:layout_width="match_parent"
@@ -73,7 +71,7 @@
                     android:text=""
                     android:textColor="#4CAF50"
                     android:textSize="12sp" />
-
+                <!--忌-->
                 <TextView
                     android:id="@+id/tv_avoid"
                     android:layout_width="match_parent"
@@ -82,8 +80,7 @@
                     android:text=""
                     android:textColor="#F44336"
                     android:textSize="12sp" />
-
-
+                <!--节气-->
                 <TextView
                     android:id="@+id/tv_solarTerms"
                     android:layout_width="match_parent"
@@ -91,9 +88,9 @@
                     android:layout_marginVertical="5dp"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="13sp" />
-
-
+                    android:textSize="13sp"
+                    tools:text="节气:xx" />
+                <!--星座-->
                 <TextView
                     android:id="@+id/tv_sconstellation"
                     android:layout_width="match_parent"
@@ -101,7 +98,8 @@
                     android:layout_marginVertical="5dp"
                     android:text=""
                     android:textColor="#333333"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:text="星座:xx" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

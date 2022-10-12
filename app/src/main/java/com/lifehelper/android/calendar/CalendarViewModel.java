@@ -1,21 +1,14 @@
 package com.lifehelper.android.calendar;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.lifehelper.android.bean.calendar.RollResultBean;
 import com.lifehelper.android.bean.calendar.TodayBean;
-import com.lifehelper.android.bean.cook.ResultBean;
-import com.lifehelper.android.bean.cook.SearchCookBean;
-import com.lifehelper.android.bean.cook.SearchCookResultBean;
 import com.lifehelper.android.net.ApiService;
 import com.lifehelper.android.net.KeyProvider;
 import com.lifehelper.android.net.UrlProvider;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,17 +19,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CalendarViewModel extends ViewModel {
 
 
-    private MutableLiveData<TodayBean> today;
+    public MutableLiveData<TodayBean> todayLiveData=new MutableLiveData<>();
 
 
-    public LiveData<TodayBean> getToday(String date) {
-        if (today == null) {
-            today = new MutableLiveData<>();
-        }
+    public void getToday(String date) {
         getTodayInfo(date);
-        return today;
     }
 
+    //获取今天的万年历信息
     private void getTodayInfo(String date) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlProvider.calendarBaseUrl)
@@ -48,7 +38,7 @@ public class CalendarViewModel extends ViewModel {
             public void onResponse(Call<RollResultBean<TodayBean>> call, Response<RollResultBean<TodayBean>> response) {
                 RollResultBean<TodayBean> body = response.body();
                 TodayBean data = body.getData();
-                today.setValue(data);
+                todayLiveData.setValue(data);
             }
 
             @Override

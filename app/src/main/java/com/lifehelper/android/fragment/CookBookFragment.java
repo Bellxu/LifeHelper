@@ -64,7 +64,6 @@ public class CookBookFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i("xsk--", "afterTextChanged: " + s.toString());
                 keyword = s.toString();
                 searchKeyword();
             }
@@ -92,10 +91,10 @@ public class CookBookFragment extends BaseFragment {
         model.cooks.observe(getViewLifecycleOwner(), new Observer<SearchCookListBean>() {
             @Override
             public void onChanged(SearchCookListBean searchCookListBean) {
+                //如果是下拉刷新重设数据，结束刷新动画，如果是加载很多往原有数据里添加新数据，结束加载更多动画
                 if (searchCookListBean.getRequestType() == 0) {
                     adapter.setList(searchCookListBean.getList());
                     mViewBinding.refreshLayout.finishRefresh();
-
                 } else {
                     adapter.addData(searchCookListBean.getList());
                     mViewBinding.refreshLayout.finishLoadMore();

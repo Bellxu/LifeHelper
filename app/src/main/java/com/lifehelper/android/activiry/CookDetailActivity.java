@@ -53,7 +53,7 @@ public class CookDetailActivity extends AppCompatActivity {
                 collectCooKId(binding.imageCollect.isSelected());
             }
         });
-
+        //监听数据变化更新UI
         model.cook.observe(this, new Observer<SearchCookBean>() {
             @Override
             public void onChanged(SearchCookBean searchCookBean) {
@@ -67,6 +67,7 @@ public class CookDetailActivity extends AppCompatActivity {
                 adapter.setList(searchCookBean.getProcess());
             }
         });
+        //通过Id获取菜谱
         model.getCook(cookId);
     }
 

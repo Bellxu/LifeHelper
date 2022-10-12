@@ -48,14 +48,12 @@ public class WeatherViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
-
-        CountDownLatch countDownLatch = new CountDownLatch(2);
-//        Log.i("xsk--", "getWeather: 1");
+        //获取实时天气
         apiService.getRealtimeWeather(locationLng, locationLat).enqueue(new Callback<WeatherRealTimeBean>() {
             @Override
             public void onResponse(Call<WeatherRealTimeBean> call, Response<WeatherRealTimeBean> response) {
                 weather.weatherRealTimeBean = response.body();
-//                countDownLatch.countDown();
+                //获取天级别的天气
                 apiService.getDailyWeather(locationLng, locationLat).enqueue(new Callback<WeatherDailyBean>() {
                     @Override
                     public void onResponse(Call<WeatherDailyBean> call, Response<WeatherDailyBean> response) {
@@ -63,7 +61,6 @@ public class WeatherViewModel extends ViewModel {
                         weatherLiveData.setValue(weather);
 
                     }
-
                     @Override
                     public void onFailure(Call<WeatherDailyBean> call, Throwable t) {
 
@@ -76,29 +73,6 @@ public class WeatherViewModel extends ViewModel {
 
             }
         });
-//        apiService.getDailyWeather(locationLng, locationLat).enqueue(new Callback<WeatherDailyBean>() {
-//            @Override
-//            public void onResponse(Call<WeatherDailyBean> call, Response<WeatherDailyBean> response) {
-//                weather.weatherDailyBean = response.body();
-////                countDownLatch.countDown();
-//                Log.i("xsk--", "getWeather countDown: 2");
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<WeatherDailyBean> call, Throwable t) {
-//                countDownLatch.countDown();
-//
-//            }
-//        });
-//        try {
-//            Log.i("xsk--", "getWeather await: 1");
-//
-//            countDownLatch.await();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        Log.i("xsk--", "getWeather await: 2");
 
     }
 
