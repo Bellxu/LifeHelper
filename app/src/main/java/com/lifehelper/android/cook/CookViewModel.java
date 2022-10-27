@@ -25,8 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CookViewModel extends ViewModel {
 
 
-    public MutableLiveData<SearchCookListBean> cooks=new MutableLiveData<>();
-    public MutableLiveData<SearchCookBean> cook=new MutableLiveData<>();
+    public MutableLiveData<SearchCookListBean> cooks = new MutableLiveData<>();
+    public MutableLiveData<SearchCookBean> cook = new MutableLiveData<>();
 
     public void getCooks(String keyword, int num, int start) {
         if (cooks == null) {
@@ -59,7 +59,7 @@ public class CookViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResultBean<SearchCookBean>> call, Throwable t) {
-
+                cook.setValue(null);
             }
         });
     }
@@ -95,6 +95,7 @@ public class CookViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResultBean<SearchCookResultBean>> call, Throwable t) {
+                cooks.setValue(null);
 
             }
         });
@@ -125,7 +126,7 @@ public class CookViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResultBean<SearchCookResultBean>> call, Throwable t) {
-
+                cooks.setValue(null);
             }
         });
 

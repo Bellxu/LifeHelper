@@ -3,7 +3,6 @@ package com.lifehelper.android.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,23 +84,48 @@ public class CookBookFragment extends BaseFragment {
                 loadMore();
             }
         });
+        mViewBinding.errorLayout.rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewBinding.refreshLayout.autoRefresh();
+            }
+        });
     }
 
     private void initLiveDataObserver() {
         model.cooks.observe(getViewLifecycleOwner(), new Observer<SearchCookListBean>() {
             @Override
             public void onChanged(SearchCookListBean searchCookListBean) {
-                //如果是下拉刷新重设数据，结束刷新动画，如果是加载很多往原有数据里添加新数据，结束加载更多动画
-                if (searchCookListBean.getRequestType() == 0) {
-                    adapter.setList(searchCookListBean.getList());
+                if (searchCookListBean == null) {
+                    showError(true);
                     mViewBinding.refreshLayout.finishRefresh();
-                } else {
-                    adapter.addData(searchCookListBean.getList());
                     mViewBinding.refreshLayout.finishLoadMore();
-
+                } else {
+                    showError(false);
+                    //如果是下拉刷新重设数据，结束刷新动画，如果是加载很多往原有数据里添加新数据，结束加载更多动画
+                    if (searchCookListBean.getRequestType() == 0) {
+                        adapter.setList(searchCookListBean.getList());
+                        mViewBinding.refreshLayout.finishRefresh();
+                    } else {
+                        if (!searchCookListBean.getList().isEmpty()) {
+                            adapter.addData(searchCookListBean.getList());
+                        }
+                        mViewBinding.refreshLayout.finishLoadMore();
+                    }
                 }
+
             }
         });
+    }
+
+    private void showError(boolean show) {
+        if (show) {
+            mViewBinding.errorLayout.rootLayout.setVisibility(View.VISIBLE);
+            mViewBinding.refreshLayout.setVisibility(View.GONE);
+        } else {
+            mViewBinding.errorLayout.rootLayout.setVisibility(View.GONE);
+            mViewBinding.refreshLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void refresh() {

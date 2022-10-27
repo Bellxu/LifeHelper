@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -34,6 +35,15 @@ public class SettingActivity extends AppCompatActivity {
                 UserInfoManger.getInstance().setUser(null);
                 LoginActivity.startActivity(SettingActivity.this);
                 finish();
+            }
+        });
+        mViewBinding.btnContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + "18817334366");
+                intent.setData(data);
+                startActivity(intent);
             }
         });
     }

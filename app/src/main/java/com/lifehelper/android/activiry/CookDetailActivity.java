@@ -57,14 +57,20 @@ public class CookDetailActivity extends AppCompatActivity {
         model.cook.observe(this, new Observer<SearchCookBean>() {
             @Override
             public void onChanged(SearchCookBean searchCookBean) {
-                mBean = searchCookBean;
-                Glide.with(CookDetailActivity.this).load(searchCookBean.getPic()).into(binding.imageCover);
-                binding.tvTitle.setText(searchCookBean.getName());
-                binding.tvRequire.setText("所需人数：" + searchCookBean.getPeoplenum() + "\n"
-                        + "所需准备时间:" + searchCookBean.getPreparetime() + "\n" + "所需烹饪时间:" + searchCookBean.getCookingtime());
-                binding.tvContent.setText(searchCookBean.getContent().replace("<br />", "\n"));
-                binding.tvMaterialContent.setText(getMaterialContent(searchCookBean));
-                adapter.setList(searchCookBean.getProcess());
+                if (searchCookBean == null) {
+                    showError(true);
+                } else {
+                    showError(false);
+                    mBean = searchCookBean;
+                    Glide.with(CookDetailActivity.this).load(searchCookBean.getPic()).into(binding.imageCover);
+                    binding.tvTitle.setText(searchCookBean.getName());
+                    binding.tvRequire.setText("所需人数：" + searchCookBean.getPeoplenum() + "\n"
+                            + "所需准备时间:" + searchCookBean.getPreparetime() + "\n" + "所需烹饪时间:" + searchCookBean.getCookingtime());
+                    binding.tvContent.setText(searchCookBean.getContent().replace("<br />", "\n"));
+                    binding.tvMaterialContent.setText(getMaterialContent(searchCookBean));
+                    adapter.setList(searchCookBean.getProcess());
+                }
+
             }
         });
         //通过Id获取菜谱
@@ -75,6 +81,17 @@ public class CookDetailActivity extends AppCompatActivity {
         List<Cook> cooks = DbManger.getInstance().getAppDatabase().cookDao().queryCooksByCookId(cookId);
         return cooks != null && !cooks.isEmpty();
     }
+
+    private void showError(boolean show) {
+        if (show) {
+            binding.errorLayout.getRoot().setVisibility(View.VISIBLE);
+            binding.contentLayout.setVisibility(View.GONE);
+        } else {
+            binding.errorLayout.getRoot().setVisibility(View.GONE);
+            binding.contentLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     private void collectCooKId(boolean selected) {
         if (!UserInfoManger.getInstance().checkLogin() || mBean == null) {
