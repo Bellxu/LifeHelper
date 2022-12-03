@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -17,11 +15,9 @@ import com.lifehelper.android.R;
 import com.lifehelper.android.activiry.CookCollectActivity;
 import com.lifehelper.android.activiry.HomeActivity;
 import com.lifehelper.android.activiry.SettingActivity;
-import com.lifehelper.android.dao.DbManger;
-import com.lifehelper.android.databinding.FragmentCookBinding;
 import com.lifehelper.android.databinding.FragmentMineBinding;
 import com.lifehelper.android.mine.MineAdapter;
-import com.lifehelper.android.mine.MineBean;
+import com.lifehelper.android.bean.mine.MineBean;
 import com.lifehelper.android.user.UserInfoManger;
 
 import java.util.ArrayList;

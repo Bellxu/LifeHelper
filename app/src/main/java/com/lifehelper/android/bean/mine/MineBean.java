@@ -1,4 +1,4 @@
-package com.lifehelper.android.mine;
+package com.lifehelper.android.bean.mine;
 
 public class MineBean {
    public String title;

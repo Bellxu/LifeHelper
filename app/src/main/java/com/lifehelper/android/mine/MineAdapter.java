@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.lifehelper.android.R;
+import com.lifehelper.android.bean.mine.MineBean;
 
 public class MineAdapter extends BaseQuickAdapter<MineBean, BaseViewHolder> {
     public MineAdapter(int layoutResId) {
