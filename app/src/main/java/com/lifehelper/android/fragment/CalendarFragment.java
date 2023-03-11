@@ -58,10 +58,6 @@ public class CalendarFragment extends BaseFragment {
             @Override
             public void onCalendarChange(BaseCalendar baseCalendar, int year, int month, LocalDate localDate, DateChangeBehavior dateChangeBehavior) {
                 mViewBinding.tvResult.setText(year + "年" + month + "月" + "   当前页面选中 " + localDate);
-//                Log.d(TAG, "   当前页面选中 " + localDate);
-//                Log.d(TAG, "   dateChangeBehavior " + dateChangeBehavior);
-//
-//                Log.e(TAG, "baseCalendar::" + baseCalendar);
                 if (localDate != null) {
                     CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
                     Lunar lunar = calendarDate.lunar;
@@ -93,7 +89,7 @@ public class CalendarFragment extends BaseFragment {
                     mViewBinding.tvSuit.setText("宜：" + todayBean.getSuit());
                     mViewBinding.tvAvoid.setText("忌：" + todayBean.getAvoid());
                     mViewBinding.tvSolarTerms.setText("节气：" + todayBean.getSolarTerms());
-                    mViewBinding.tvSconstellation.setText("星座：" + todayBean.getSolarTerms());
+                    mViewBinding.tvSconstellation.setText("星座：" + todayBean.getConstellation());
                 }
             }
         });

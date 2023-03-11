@@ -14,7 +14,7 @@ import com.lifehelper.android.user.UserConfig;
 import com.lifehelper.android.user.UserInfoManger;
 import com.lifehelper.android.util.PreferencesUtils;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
     private ActivitySettingBinding mViewBinding;
 
     @Override

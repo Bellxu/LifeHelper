@@ -15,7 +15,7 @@ import com.lifehelper.android.util.PreferencesUtils;
 import java.util.List;
 
 //闪屏页
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

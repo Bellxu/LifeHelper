@@ -23,7 +23,7 @@ import com.lifehelper.android.user.UserInfoManger;
 
 import java.util.List;
 
-public class CookCollectActivity extends AppCompatActivity {
+public class CookCollectActivity extends BaseActivity {
 
     private ActivityCookCollectBinding binding;
     private CookCollectAdapter adapter;
@@ -47,6 +47,12 @@ public class CookCollectActivity extends AppCompatActivity {
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Cook data = (Cook) adapter.getData().get(position);
                 CookDetailActivity.startActivity(CookCollectActivity.this, data.cookId);
+            }
+        });
+        binding.bar.findViewById(R.id.image_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

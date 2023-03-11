@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private ActivityLoginBinding mViewBinding;
 
@@ -84,6 +84,12 @@ public class LoginActivity extends AppCompatActivity {
                     DbManger.getInstance().getAppDatabase().userDao().insertUser(user);
                     ToastUtils.showToast(LoginActivity.this, "注册成功,点击登陆继续");
                 }
+            }
+        });
+        mViewBinding.icBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCollector.finishAll();
             }
         });
 

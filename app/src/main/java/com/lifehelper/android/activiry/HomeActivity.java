@@ -20,7 +20,7 @@ import com.lifehelper.android.fragment.CookBookFragment;
 import com.lifehelper.android.fragment.MineFragment;
 import com.lifehelper.android.fragment.WeatherFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;

@@ -8,6 +8,10 @@ import com.lifehelper.android.bean.weather.WeatherPlaceBean;
 import com.lifehelper.android.net.ApiService;
 import com.lifehelper.android.net.UrlProvider;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +28,20 @@ public class PlaceViewModel extends ViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().build();
+        okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+
+            }
+        });
+
         //通过关键字搜索地址信息
         apiService.searchPlaces(keywords).enqueue(new Callback<WeatherPlaceBean>() {
             @Override

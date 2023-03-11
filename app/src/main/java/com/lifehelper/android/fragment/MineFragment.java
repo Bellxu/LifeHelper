@@ -1,12 +1,18 @@
 package com.lifehelper.android.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.UserManager;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,10 +21,14 @@ import com.lifehelper.android.R;
 import com.lifehelper.android.activiry.CookCollectActivity;
 import com.lifehelper.android.activiry.HomeActivity;
 import com.lifehelper.android.activiry.SettingActivity;
+import com.lifehelper.android.dao.DbManger;
+import com.lifehelper.android.dao.User;
+import com.lifehelper.android.dao.UserDao;
 import com.lifehelper.android.databinding.FragmentMineBinding;
 import com.lifehelper.android.mine.MineAdapter;
 import com.lifehelper.android.bean.mine.MineBean;
 import com.lifehelper.android.user.UserInfoManger;
+import com.lifehelper.android.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +57,43 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mViewBinding.tcUserName.setText(UserInfoManger.getInstance().getUser().nickName);
+        mViewBinding.tcUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // 设置主题的构造方法
+                // AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialog);
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                View view = inflater.inflate(R.layout.fragment_dialog, null);
+                EditText editText = view.findViewById(R.id.edit_text);
+                builder.setView(view);
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    private String newName;
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Editable text = editText.getText();
+
+                        newName = text.toString();
+                        if (TextUtils.isEmpty(newName)) {
+                            ToastUtils.showToast(getActivity(), "用户名为空");
+                            return;
+                        }
+                        changeUserName(newName);
+
+                    }
+                });
+                builder.create().show();
+                // Do Someting,eg: TextView tv = view.findViewById(R.id.edit_text);
+            }
+        });
         mViewBinding.imageSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,5 +128,14 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private void changeUserName(String newName) {
+        mViewBinding.tcUserName.setText(newName);
+        User user = UserInfoManger.getInstance().getUser();
+        user.nickName = newName;
+        UserInfoManger.getInstance().setUser(user);
+        DbManger.getInstance().getAppDatabase().userDao().updateUser(user);
+        ToastUtils.showToast(getActivity(), "修改成功");
     }
 }
